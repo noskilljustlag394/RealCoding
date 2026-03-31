@@ -144,19 +144,32 @@
     }
     .image-card img { width: 100%; height: 620px; object-fit: cover; }
     .image-overlay {
-      position: absolute; left: 0; right: 0; bottom: 0;
-      padding: 28px;
-      background: linear-gradient(180deg, rgba(15,23,42,0), rgba(15,23,42,.78));
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 28px 28px 44px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: linear-gradient(180deg, rgba(15,23,42,0), rgba(15,23,42,.82));
       color: #fff;
     }
     .image-overlay .eyebrow { color: #bfe8ff; }
     .image-overlay h2 {
-      margin: 10px 0 8px;
-      font-size: 32px;
-      line-height: 1.03;
+      margin: 0;
+      font-size: clamp(28px, 3.2vw, 32px);
+      line-height: 1.05;
       letter-spacing: -.03em;
+      max-width: 560px;
     }
-    .image-overlay p { margin: 0; color: #dbe7f2; font-size: 15px; }
+    .image-overlay p {
+      margin: 0;
+      color: #dbe7f2;
+      font-size: 15px;
+      line-height: 1.6;
+      max-width: 540px;
+    }
     .floating-note {
       position: absolute;
       left: -24px;
@@ -413,6 +426,15 @@
       .hero-grid { padding-top: 44px; }
       .pill-row, .proof-grid, .cards-3, .cards-6, .city-grid, .dark-tags, .flow-grid, .mini-split { grid-template-columns: 1fr; }
       .image-card img, .dark-image-card img { height: 400px; }
+      .image-overlay {
+        padding: 22px 22px 28px;
+      }
+      .image-overlay h2 {
+        font-size: 24px;
+      }
+      .image-overlay p {
+        font-size: 14px;
+      }
       .footer-wrap { flex-direction: column; align-items: flex-start; }
     }
   </style>
