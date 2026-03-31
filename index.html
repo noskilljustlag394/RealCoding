@@ -1,1 +1,475 @@
-<!doctype html><html><body><h1>test</h1></body></html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RealCoding — Learn to Build What the Real World Will Test</title>
+    <meta
+      name="description"
+      content="RealCoding is a university-scale applied program where students build, stress-test, and launch real digital products under real constraints."
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            boxShadow: {
+              glow: '0 0 0 1px rgba(255,255,255,0.05), 0 20px 60px rgba(0,0,0,0.45)'
+            },
+            animation: {
+              float: 'float 6s ease-in-out infinite',
+              pulseSoft: 'pulseSoft 4s ease-in-out infinite',
+              fadeUp: 'fadeUp .8s ease-out both'
+            },
+            keyframes: {
+              float: {
+                '0%,100%': { transform: 'translateY(0px)' },
+                '50%': { transform: 'translateY(-6px)' }
+              },
+              pulseSoft: {
+                '0%,100%': { opacity: 0.65 },
+                '50%': { opacity: 1 }
+              },
+              fadeUp: {
+                '0%': { opacity: 0, transform: 'translateY(18px)' },
+                '100%': { opacity: 1, transform: 'translateY(0)' }
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+      html { scroll-behavior: smooth; }
+      body {
+        background:
+          radial-gradient(circle at top left, rgba(34, 211, 238, 0.08), transparent 22%),
+          radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.05), transparent 16%),
+          #09090b;
+      }
+    </style>
+  </head>
+  <body class="bg-zinc-950 text-zinc-100 antialiased">
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const { useState } = React;
+
+      const proofPoints = [
+        'University-scale applied program',
+        'Build → stress-test → launch',
+        'AI-native workflow, human accountability',
+        'Global immersion with defined build objectives'
+      ];
+
+      const comparison = [
+        ['Syntax before context', 'Building from the beginning'],
+        ['Protected assignments', 'Live constraints and launch pressure'],
+        ['Theory separated from delivery', 'Judgment trained through shipping'],
+        ['AI treated as an exception', 'AI integrated into the normal workflow'],
+        ['Little exposure to failure after release', 'Stress tests, audits, review, and postmortems']
+      ];
+
+      const tracks = [
+        {
+          title: 'Websites',
+          description: 'Conversion-focused pages, product sites, launch surfaces, and digital presence designed to perform in public.',
+          tags: ['Landing pages', 'Campaign sites', 'Multilingual surfaces']
+        },
+        {
+          title: 'Web Apps',
+          description: 'Interfaces with real workflows, real states, admin tools, and launch expectations beyond tutorials.',
+          tags: ['Dashboards', 'Portals', 'Operational tools']
+        },
+        {
+          title: 'AI Systems',
+          description: 'Applied systems where AI helps accelerate work without replacing architecture, validation, or responsibility.',
+          tags: ['Research copilots', 'Assistants', 'Workflow support']
+        },
+        {
+          title: 'Automations',
+          description: 'Reviewable automations that connect tools, route work, reduce manual effort, and remain understandable.',
+          tags: ['Intake routing', 'Document flows', 'Approval systems']
+        },
+        {
+          title: 'Defensive Sandbox Security',
+          description: 'Authorized, sandboxed exercises in threat modeling, hardening, permissions review, and controlled adversarial testing.',
+          tags: ['Threat models', 'Access audits', 'Response drills']
+        },
+        {
+          title: 'Regulated / Safety-Oriented Systems',
+          description: 'Simulation-based work in monitoring, compliance logic, traceability, and risk-aware technical design.',
+          tags: ['Safety dashboards', 'Audit trails', 'Compliance workflows']
+        }
+      ];
+
+      const learningSteps = [
+        ['Receive the brief', 'Students work from imperfect requirements, product goals, market context, and real delivery timelines.'],
+        ['Build the first version', 'They ship with modern tooling, including AI-assisted coding, research, debugging, and iteration.'],
+        ['Face friction', 'Bugs, conflicting specs, scale limits, broken assumptions, and stakeholder feedback are part of the curriculum.'],
+        ['Go through review', 'Projects are examined through peer critique, technical review, audit logic, and launch criteria.'],
+        ['Stress-test and launch', 'Students harden the product, document decisions, and release work that can survive contact with reality.']
+      ];
+
+      const residencies = [
+        ['United States', 'Launch pressure', 'Product velocity, market-facing deployment, iteration speed, and public demo standards.'],
+        ['Germany', 'Systems discipline', 'Reliability, documentation, operational clarity, and engineering rigor.'],
+        ['Israel', 'Rapid iteration', 'Resilience, decision-making under pressure, and security-minded product thinking.'],
+        ['Singapore', 'Regulated execution', 'Precision, trust, compliance, and safety-oriented technical environments.']
+      ];
+
+      const faqs = [
+        ['Is this a bootcamp?', 'No. It is framed as a full applied university-style program with more practical pressure and more launch exposure than theory-first coding education.'],
+        ['Is AI being used as a shortcut?', 'No. AI is treated as part of modern workflow for research, drafting, coding, debugging, and automation, while students remain responsible for validation, architecture, safety, and final decisions.'],
+        ['Are security and bio-related domains bounded?', 'Yes. Security-related work is authorized, defensive, and sandboxed. Regulated or bio-related work is safety-oriented, simulation-based, compliance-aware, and tightly bounded.'],
+        ['Why include travel?', 'Because different locations expose students to different technical cultures, standards, and operating environments. Travel serves formation; it is not the product.']
+      ];
+
+      function SectionHeader({ eyebrow, title, description, centered = false }) {
+        return (
+          <div className={centered ? 'mx-auto max-w-3xl text-center' : 'max-w-3xl'}>
+            {eyebrow && <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-cyan-300/80">{eyebrow}</p>}
+            <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">{title}</h2>
+            {description && <p className="mt-4 text-base leading-7 text-zinc-300 sm:text-lg">{description}</p>}
+          </div>
+        );
+      }
+
+      function Button({ href, children, secondary = false }) {
+        return (
+          <a
+            href={href}
+            className={
+              'inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition ' +
+              (secondary
+                ? 'border border-white/15 bg-white/5 text-white hover:bg-white/10'
+                : 'bg-cyan-300 text-zinc-950 hover:bg-cyan-200')
+            }
+          >
+            {children}
+          </a>
+        );
+      }
+
+      function FAQItem({ question, answer }) {
+        const [open, setOpen] = useState(false);
+        return (
+          <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur">
+            <button type="button" onClick="() => setOpen(!open)" className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left">
+              <span className="text-base font-medium text-white">{question}</span>
+              <span className="text-xl text-cyan-300">{open ? '−' : '+'}</span>
+            </button>
+            {open && <div className="px-5 pb-5 text-sm leading-7 text-zinc-300">{answer}</div>}
+          </div>
+        );
+      }
+
+      function App() {
+        return (
+          <div className="relative overflow-hidden">
+            <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.14),transparent_28%),radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.08),transparent_20%),radial-gradient(circle_at_bottom_right,rgba(34,211,238,0.10),transparent_25%)]"></div>
+            <header className="sticky top-0 z-40 border-b border-white/10 bg-zinc-950/75 backdrop-blur-xl">
+              <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+                <a href="#top" className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-cyan-300/30 bg-cyan-300/10 text-sm font-semibold text-cyan-300 shadow-glow">RC</div>
+                  <div>
+                    <p className="text-sm font-semibold text-white">RealCoding</p>
+                    <p className="text-xs uppercase tracking-[0.24em] text-zinc-400">Applied builder university</p>
+                  </div>
+                </a>
+                <div className="hidden md:flex items-center gap-6 text-sm text-zinc-300">
+                  <a href="#model" className="hover:text-white">Model</a>
+                  <a href="#tracks" className="hover:text-white">Tracks</a>
+                  <a href="#testing" className="hover:text-white">Testing</a>
+                  <a href="#ai" className="hover:text-white">AI</a>
+                  <a href="#global" className="hover:text-white">Global</a>
+                  <a href="#apply" className="hover:text-white">Apply</a>
+                </div>
+              </div>
+            </header>
+
+            <main id="top">
+              <section className="mx-auto max-w-7xl px-4 pb-20 pt-16 sm:px-6 lg:px-8 lg:pb-28 lg:pt-24">
+                <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
+                  <div className="animate-fadeUp">
+                    <p className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-cyan-300/80">Applied Technical University Program</p>
+                    <h1 className="max-w-4xl text-4xl font-semibold tracking-tight text-white sm:text-6xl lg:text-7xl">Learn to build what the real world will test.</h1>
+                    <p className="mt-6 max-w-3xl text-lg leading-8 text-zinc-300 sm:text-xl">RealCoding is a university-scale applied program where students ship websites, apps, AI workflows, and safety-bounded technical systems under real deadlines, real audits, real constraints, and real launch pressure.</p>
+                    <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                      <Button href="#apply">Apply for the next cohort</Button>
+                      <Button href="#model" secondary>See how the program works</Button>
+                    </div>
+                    <div className="mt-8 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+                      {proofPoints.map(point => <div key={point} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-zinc-200 backdrop-blur">{point}</div>)}
+                    </div>
+                  </div>
+
+                  <div className="relative animate-float">
+                    <div className="absolute -inset-4 rounded-[2rem] bg-cyan-300/10 blur-3xl"></div>
+                    <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-zinc-900/90 p-5 shadow-glow">
+                      <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                        <div>
+                          <p className="text-xs uppercase tracking-[0.28em] text-cyan-300/80">Launch board</p>
+                          <p className="mt-1 text-lg font-semibold text-white">Product readiness snapshot</p>
+                        </div>
+                        <span className="rounded-full border border-cyan-300/30 bg-cyan-300/10 px-3 py-1 text-xs font-medium text-cyan-200">Cohort simulation</span>
+                      </div>
+                      <div className="mt-5 grid gap-4">
+                        <div className="rounded-2xl border border-white/10 bg-white/5 p-4 flex items-end justify-between gap-4"><p className="max-w-[14rem] text-sm text-zinc-300">Users supported before bottleneck</p><p className="text-2xl font-semibold text-white">18,400</p></div>
+                        <div className="rounded-2xl border border-white/10 bg-white/5 p-4 flex items-end justify-between gap-4"><p className="max-w-[14rem] text-sm text-zinc-300">Critical issues after audit</p><p className="text-2xl font-semibold text-cyan-300">03</p></div>
+                        <div className="rounded-2xl border border-white/10 bg-white/5 p-4 flex items-end justify-between gap-4"><p className="max-w-[14rem] text-sm text-zinc-300">Launch review score</p><p className="text-2xl font-semibold text-white">89 / 100</p></div>
+                      </div>
+                      <div className="mt-6 rounded-3xl border border-white/10 bg-zinc-950/70 p-4">
+                        <div className="flex items-center justify-between"><p className="text-sm font-medium text-white">Current build cycle</p><span className="h-2.5 w-2.5 rounded-full bg-cyan-300 animate-pulseSoft"></span></div>
+                        <div className="mt-4 space-y-3">
+                          {['Build v1','Audit','Stress test','Fix + harden','Launch review'].map((step, i) => (
+                            <div key={step} className="flex items-center gap-3">
+                              <div className={(i < 3 ? 'bg-cyan-300' : 'bg-zinc-700') + ' h-2 w-2 rounded-full'}</div>
+                              <div className="flex-1 rounded-full bg-white/5 px-3 py-2 text-sm text-zinc-300">{step}</div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section className="border-y border-white/10 bg-white/[0.02] py-5">
+                <div className="mx-auto grid max-w-7xl gap-4 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8">
+                  {[
+                    'Builds launched, not just assigned',
+                    'AI-native workflow, human accountability',
+                    'Stress tests before release',
+                    'Global immersion with specific objectives'
+                  ].map(item => (
+                    <div key={item} className="rounded-2xl border border-white/10 bg-zinc-900/60 px-4 py-4 text-sm text-zinc-300">{item}</div>
+                  ))}
+                </div>
+              </section>
+
+              <section id="model" className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+                <div className="grid gap-14 lg:grid-cols-[0.9fr_1.1fr]">
+                  <SectionHeader eyebrow="Why the model exists" title="Traditional coding education is often protected from the conditions that make technical work real." description="Real products face unclear requirements, broken assumptions, traffic spikes, bugs, review pressure, and the responsibility to launch anyway. RealCoding is built around that reality." />
+                  <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 shadow-glow">
+                    <div className="grid grid-cols-2 border-b border-white/10 bg-white/[0.03] text-sm font-medium text-zinc-300"><div className="px-5 py-4">Traditional model</div><div className="border-l border-white/10 px-5 py-4">RealCoding model</div></div>
+                    {comparison.map(([ey�e, right]) => (
+                      <div key={left} className="grid grid-cols-2 border-b border-white/10 last:border-b-0">
+                        <div className="px-5 py-4 text-sm text-zinc-400">{left}</div>
+                        <div className="border-l border-white/10 px-5 py-4 text-sm text-zinc-100">{right}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </section>
+
+              <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8 lg:pb-28">
+                <div className="grid gap-6 lg:grid-cols-3">
+                  {[
+                    ['Build', 'Students learn by making products that must work beyond the tutorial environment.'],
+                    ['Test', 'Work is pushed through audits, bottlenecks, systems, integration, and launch readiness checks.'],
+                    ['Launch', 'The standard is not “it runs locally.” The standard is “it can survive real use.”']
+                  ].map(([title, body]) => (
+                    <div key={title} className="rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-glow">
+                      <p className="text-xs font-semibold uppercase tracking-[0.28em] text-cyan-300/80">{title}</p>
+                      <p className="mt-4 text-xl font-semibold text-white">{body}</p>
+                    </div>
+                  ))
+                  }</div>
+              </section>
+
+              <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8 lg:pb-28">
+                <SectionHeader eyebrow="How learning happens" title="Students are trained through implementation, review, and launch—not passive familiarity." description="The program combines build sprints, focused theory, critique, debugging labs, demo days, and postmortems. Fundamentals are learned in context rather than in isolation." />
+                <div className="mt-12 grid gap-6 lg:grid-cols-[1fr_0.9fr]">
+                  <div className="space-y-4">
+                    {learningSteps.map(([title, body], i) => (
+                      <div key={title} className="rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-glow">
+                        <div className="flex items-start gap-4">
+                          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-cyan-300/30 bg-cyan-300/10 text-sm font-semibold text-cyan-200">0i + 1}</div>
+                          <div>
+                            <h3 className="text-xl font-semibold text-white">{title}</h3>
+                            <p className="mt-3 text-sm leading-7 text-zinc-300">{body}</p>
+                          </div>
+                        </div>
+                      </div>
+                    ))
+                  }</div>
+                  <div className="rounded-[2rem] border border-white/10 bg-zinc-900/80 p-6 shadow-glow">
+                    <p className="text-xs font-semibold uppercase tracking-[0.28em] text-cyan-300/80">Sample practical classes</p>
+                    <h3 className="mt-4 text-2xl font-semibold text-white">Readable course titles built around usable output</h3>
+                    <div className="mt-6 space-y-3">
+                      {['How to Launch a Product That Doesn’t Break','How to Fix a Web App Under Pressure','How to Ship With AI Without Losing Judgment','How to Harden a Product Before Release','How to Build for Regulated Environments'].map(title => (
+                        <div key={title} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm text-zinc-200">{title}</div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section id="tracks" className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8 lg:pb-28">
+                <SectionHeader eyebrow="Tracks" title="The curriculum is broad enough to reflect real product work, but structured enough to remain serious." description="Students work across surfaces, systems, implementation, automation, and bounded technical environments that demand reliability and review." />
+                <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                  {tracks.map(track => (
+                    <div key={track.title} className="rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-glow">
+                      <h3 className="text-xl font-semibold text-white">{track.title}</h3>
+                      <p className="mt-3 text-sm leading-7 text-zinc-300">{track.description}</p>
+                      <div className="mt-5 flex flex-wrap gap-2">
+                        {track.tags.map(tag => <span key={tag} className="rounded-full border border-white/10 bg-zinc-950/70 px-3 py-1 text-xs text-zinc-300">{tag}</span>)}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              <section id="testing" className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8 lg:pb-28">
+                <div className="rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-glow sm:p-10">
+                  <SectionHeader eyebrow="Testing and launch" title="A build is not finished because it exists. It is finished when it survives pressure." description="This is where RealCoding separates itself from protected learning environments. Products face stress tests, audits, hackathons, and launch reviews before they are considered ready." />
+                  <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+                    {[
+                      ['Stress tests','Projects are tested against traffic, malformed inputs, unstable dependencies, slow queries, and performance bottlenecks.'],
+                      ['Audits','Students face code review, architecture review, data handling review, UX friction review, and launch readiness checks.'],
+                      ['Hackathons','Short, high-intensity build windows force prioritization, collaboration, speed, and public delivery.'],
+                      ['Launch reviews','Before release, products are reviewed for clarity, resilience, function, and whether they can survive real use.']
+                    ].map(([title, body]) => (
+                      <div key={title} className="rounded-[1.75rem] border border-white/10 bg-zinc-950/70 p-5">
+                        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-300/80">{title}</p>
+                        <p className="mt-3 text-sm leading-7 text-zinc-300">{body}</p>
+                      </div>
+                    ))
+                  }</div>
+                  <div className="mt-8 rounded-[1.5rem] border border-cyan-300/20 bg-cyan-300/5 p-5 text-sm leading-7 text-zinc-200">Security-related work is authorized, defensive, and sandboxed. Regulated or bio-related work is safety-oriented, simulation-based, compliance-aware, and bounded by clear ethical limits.</div>
+                </div>
+              </section>
+
+              <section id="ai" className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8 lg:pb-28">
+                <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+                  <SectionHeader eyebrow="AI-native workflow" title="AI is part of the workflow. It is not a substitute for judgment." description="Students are trained to use modern AI tools for research, prototyping, coding acceleration, debugging, automation, and documentation support—while remaining accountable for correctness, architecture, safety, and final decisions." />
+                  <div className="rounded-[2rem] border border-white/10 bg-zinc-900/80 p-6 shadow-glow">
+                    <div className="grid gap-4 sm:grid-cols-5">
+                      {['Direct','Draft','Test','Review','Ship'].map((item, i) => (
+                        <div key={item} className="relative rounded-2xl border border-white/10 bg-white/5 px-4 py-5 text-center text-sm font-medium text-white">
+                          <span className="absolute -top-2 left-1/2 -translate-x-1/2 rounded-full bg-zinc-950 px-2 text-[10px] uppercase tracking-[0.2em] text-zinc-400">{i + 1}</span>
+                          {item}
+                        </div>
+                      ))
+                    </div>
+                    <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                      <div className="rounded-3xl border border-white/10 bg-white/5 p-4"><p className="text-sm font-semibold text-white">AI helps with</p><p className="mt-2 text-sm leading-7 text-zinc-300">Prototyping, research, drafting, summarization, debugging support, and workflow speed.</p></div>
+                      <div className="rounded-3xl border border-white/10 bg-white/5 p-4"><p className="text-sm font-semibold text-white">Students remain responsible for</p><p className="mt-2 text-sm leading-7 text-zinc-300">Architecture, validation, correctness, safety, prioritization, and final release decisions.</p></div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section id="global" className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8 lg:pb-28">
+                <SectionHeader eyebrow="Global immersion" title="Travel is used for specific build objectives, not as decoration." description="Different locations expose students to different technical cultures, operating environments, and product standards. Each residency exists because it serves a defined purpose in the formation model." />
+                <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+                  {residencies.map(([country, objective, detail]) => (
+                    <div key={country} className="rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-glow">
+                      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-300/80">{country}</p>
+                      <h3 className="mt-3 text-xl font-semibold text-white">{objective}</h3>
+                      <p className="mt-4 text-sm leading-7 text-zinc-300">{detail}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8 lg:pb-28">
+                <div className="grid gap-8 lg:grid-cols-2">
+                  <div className="rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-glow">
+                    <p className="text-xs font-semibold uppercase tracking-[0.28em] text-cyan-300/80">Who it is for</p>
+                    <div className="mt-5 space-y-3">{[
+                      'You want to learn by building things that have to work.',
+                      'You are energized by deadlines, critique, and visible output.',
+                      'You want AI integrated into real technical workflow.',
+                      'You care about execution more than passive academic comfort.',
+                      'You want your education tested by reality, not protected from it.'
+                    ].map(item => <div key={item} className="rounded-2xl border border-white/10 bg-zinc-950/60 px-4 py-4 text-sm text-zinc-200">{item}</div>)}</div>
+                  </div>
+                  <div className="rounded-[2rem] border border-white/10 bg-zinc-900/80 p-6 shadow-glow">
+                    <p className="text-xs font-semibold uppercase tracking-[0.28em] text-cyan-300/80">Who it is not for</p>
+                    <div className="mt-5 space-y-3">{[
+                      'You want a lecture-first experience with minimal delivery pressure.',
+                      'You mainly want credentials without difficult execution.',
+                      'You dislike ambiguity, review, or revision.',
+                      'You want shortcuts instead of formation.',
+                      'You want security or bio-related work without strict ethical and safety boundaries.'
+                    ].map(item => <div key={item} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm text-zinc-200">{item}</div>)}</div>
+                  </div>
+                </div>
+              </section>
+
+              <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8 lg:pb-28">
+                <SectionHeader eyebrow="Outcomes" title="Graduate with evidence, not just exposure." description="The promise is not that everyone becomes a founder or a top engineer overnight. The promise is that students leave with stronger execution, real artifacts, and a more honest relationship to how technical work is done." />
+                <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+                  {[
+                    ['Launched work','Students leave with websites, apps, systems, demos, and case studies that show real execution.'],
+                    ['Sharper judgment','They build taste in scoping, debugging, prioritization, review, and delivery under pressure.'],
+                    ['Modern workflow','They learn to use AI seriously while remaining accountable for correctness, safety, and final decisions.'],
+                    ['Evidence, not slogans','The point is visible proof that a student can build and improve under real conditions.']
+                  ].map(([title, body]) => (
+                    <div key={title} className="rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-glow">
+                      <h3 className="text-xl font-semibold text-white">{title}</h3>
+                      <p className="mt-3 text-sm leading-7 text-zinc-300">{body}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              <section className="mx-auto max-w-4xl px-4 pb-20 sm:px-6 lg:px-8 lg:pb-28">
+                <SectionHeader eyebrow="FAQ" title="Important questions, answered directly." description="The concept is ambitious, so the page should answer doubts clearly rather than hide them behind slogans." centered />
+                <div className="mt-10 space-y-4">{faqs.map(([q, a]) => <FAQItem key={q} question={q} answer={a} />)}</div>
+              </section>
+
+              <section id="apply" className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8 lg:pb-32">
+                <div className="grid gap-8 rounded-[2rem] border border-white/10 bg-zinc-900/80 p-6 shadow-glow sm:p-8 lg:grid-cols-[0.9fr_1.1fr] lg:p-10">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.28em] text-cyan-300/80">Apply / interest form</p>
+                    <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">If you want technical education that survives contact with reality, start here.</h2>
+                    <p className="mt-4 text-base leading-7 text-zinc-300">This form is the first step into a selective admissions funnel. On a production deployment, it can be connected to Formspree, a backend endpoint, or an admissions CRM.</p>
+                    <div className="mt-6 rounded-[1.5rem] border border-cyan-300/20 bg-cyan-300/5 p-4 text-sm leading-7 text-zinc-200">Honest boundary: RealCoding is not promising shortcuts. It is promising a harder, more applied, more modern way to learn technical building.</div>
+                  </div>
+                  <form className="grid gap-4 rounded-[1.75rem] border border-white/10 bg-white/5 p-5">
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      <input placeholder="First name" className="w-full rounded-2xl border border-white/10 bg-zinc-950/70 px-4 py-3 text-sm text-white placeholder:text-zinc-500" />
+                      <input placeholder="Last name" className="w-full rounded-2xl border border-white/10 bg-zinc-950/70 px-4 py-3 text-sm text-white placeholder:text-zinc-500" />
+                    </div>
+                    <input placeholder="Email" className="w-full rounded-2xl border border-white/10 bg-zinc-950/70 px-4 py-3 text-sm text-white placeholder:text-zinc-500" />
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      <input placeholder="Country" className="w-full rounded-2xl border border-white/10 bg-zinc-950/70 px-4 py-3 text-sm text-white placeholder:text-zinc-500" />
+                      <input placeholder="Current stage" className="w-full rounded-2xl border border-white/10 bg-zinc-950/70 px-4 py-3 text-sm text-white placeholder:text-zinc-500" />
+                    </div>
+                    <input placeholder="Link to something you've built (optional)" className="w-full rounded-2xl border border-white/10 bg-zinc-950/70 px-4 py-3 text-sm text-white placeholder:text-zinc-500" />
+                    <textarea rows="5" placeholder="Why does this program interest you?" className="w-full rounded-2xl border border-white/10 bg-zinc-950/70 px-4 py-3 text-sm text-white placeholder:text-zinc-500"></textarea>
+                    <div className="flex flex-col gap-3 pt-2 sm:flex-row">
+                      <button type="button" className="inline-flex items-center justify-center rounded-full bg-cyan-300 px-5 py-3 text-sm font-semibold text-zinc-950">Start your application</button>
+                      <a href="mailto:admissions@realcoding.example?subject=RealCoding%20Program%20Overview" className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white">Request the program overview</a>
+                    </div>
+                    <p className="text-xs leading-6 text-zinc-400">Static-hosting note: the UI is production-ready; to collect submissions, connect the form to Formspree or a backend endpoint before going live.</p>
+                  </form>
+                </div>
+              </section>
+
+            </main>
+
+            <footer className="border-t border-white/10 py-8">
+              <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 text-sm text-zinc-400 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+                <p>RealCoding — learn to build what the real world will test.</p>
+                <div className="flex flex-wrap gap-4">
+                  <a href="#model" className="hover:text-white">Program model</a>
+                  <a href="#tracks" className="hover:text-white">Tracks</a>
+                  <a href="#apply" className="hover:text-white">Apply</a>
+                </div>
+              </div>
+            </footer>
+          </div>
+        ); 
+      }
+
+      ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script>
+  </body>
+</html>
